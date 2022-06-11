@@ -1,0 +1,41 @@
+Maxime Kotur
+
+Part2:
+- The threads in thr2.cc are called after printC. If we look at the  function
+  printC, we find that it will print a string forever as it is in a while look
+  loop. Therefore in thr2 we stay stuck in the printC function and thus the two
+  threads never get called which explains the infinite "C"s.
+  
+Part4:
+----------------------------------------------------------------------------------
+|                                          | System Time | User Time | Real Time |
+----------------------------------------------------------------------------------
+| pthread_mutex (count)                    |   0m0.000s  | 0m0.082s  | 0m0.082s  |
+----------------------------------------------------------------------------------
+| spin lock (count_spin with thr_yield)    |   0m0.008s  | 0m0.179s  | 0m0.114s  |
+----------------------------------------------------------------------------------
+| spin_lock (count_spin without thr_yield) |   0m0.000s  | 0m0.218s  | 0m0.130s  |
+----------------------------------------------------------------------------------
+
+1.
+- Using thr_yield in the spin_lock function makes it so that we pass into
+  kernel mode which explains why the usertime is reduced and the system time is 
+  increased when we use thr_yield. Not using thr_yield makes it so that we stay
+  in user mode which also explains this.
+
+2.
+- We see that for count, the system time is 0m0.000s and that count_spin with
+  thr_yield is 0m0.008s. This difference is due to mutex lock putting the
+  the threads used in a wait state and not continuously spinning like in 
+  count_spin.
+  
+Part6:
+- the correct little endian bytes are \xef\xbe\xad\xde
+- I used python to exploit the buffer, here is the code:
+  ./buffer $(python -c 'print 15 * "A" + "\xef\xbe\xad\xde"')
+- This occurs as we are overflowing the buffer with 15 "A"'s. We use this
+  exact number as that is the size of the buffer. Now that the buffer has
+  been overflowed, the other inputs will be stored into set_me. In order to call
+  shell(), set_me needs to be 0xdeadbeef. However to get this, we change the 
+  value in to little endian bytes (32 bit) which is \xef\xbe\xad\xde. Which is 
+  why 'print 15 * "A" + "\xef\xbe\xad\xde"' makes set_me call shell().
