@@ -1,0 +1,9 @@
+2
+6 6
+A B C D E F
+S G A I J G
+K T M C O H
+P Q R K T I
+U V W X Y J
+K L M O P Q
+STACKTOIJQP
