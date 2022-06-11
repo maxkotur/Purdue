@@ -1,0 +1,33 @@
+Hello! I am Maxime Kotur and I will list the things that I have implemented
+for my shell project.
+
+I have passed all test cases including wildcards.
+
+I have completed ctrlc. It should be fully functional.
+-Ctrl+C doesn’t kill the shell : works
+-Ctrl+C kills “sleep 100” : works
+
+I have completed edit mode. 
+-History (up/down) : works
+-Arrows : works
+-(ctrl-D) : works
+-(ctrl-H) : works
+-Insert in the middle: doesn't work
+(ctrl-A) : works
+(ctrl-E) : works
+
+I have also implemented partially path completion
+- ls t<tab> will not complete the work but will suggest words that start with t
+- ls test<tab> works as it shows all files starting with test
+- you can try it with other things like 'cd test-<tab>' which will directly
+cd you into test-shell
+
+I have also implemented variable prompt
+- variable prompt change : works
+- variable on_error change : doesn't work
+
+Additional Features:
+- I have implemented a sound occurring every time you press tab.
+- The shell will make a sound when <tab> is pressed to show that it has 
+  understood and will give you the matching words. I think it is worth at 
+  least 1 credit point.
